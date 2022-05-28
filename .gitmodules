@@ -1,0 +1,3 @@
+[submodule "protocols/poap/poap-contracts"]
+	path = protocols/poap/poap-contracts
+	url = https://github.com/sbvegan/poap-contracts
