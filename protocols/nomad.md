@@ -25,8 +25,7 @@ Its patterned after optimistic systems, so that means it follows the happy path,
 
 It sees an attestation of some data and accepts it as valid after a timer elapses. Before the timer ends, honest participants have a chance to respond to the attestation and/or submit fraud proofs.
 
-Nomad spans multiple chains. The sending chain is the source of truth, and contains the "Home" contract where messages are enqueued. (so does that mean messages only send one way? that can't be right...)
-
+Nomad spans multiple chains. The sending chain is the source of truth, and contains the "Home" contract where messages are enqueued. Messages are committed to the "message tree", which is a merkle tree that 
 
 
 Guarantees:
@@ -37,6 +36,10 @@ Guarantees:
 
 Instead of relying on a globally verifiable fraud-proof, Nomad relies on local verification by participants. The saves 90% on gas fees compared to pessimistic relays, while maintaining a high degree of security. It's a DON'T TRUST. VERIFY. type system.
 
-## SOURCES
+## Questions
+
+- 
+
+## Sources
 
 - https://docs.nomad.xyz/
