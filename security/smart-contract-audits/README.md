@@ -2,7 +2,7 @@
 
 ## Checklists and Resources
 
-- [ ] [Follow this quality checklist before an audit](https://blog.openzeppelin.com/follow-this-quality-checklist-before-an-audit-8cc6a0e44845/)
+- [X] [Follow this quality checklist before an audit](https://blog.openzeppelin.com/follow-this-quality-checklist-before-an-audit-8cc6a0e44845/)
 - [ ] [Ethereum Smart Contract Security Best Practices](https://consensys.github.io/smart-contract-best-practices/)
 - [ ] [Ethereum smart contract security checklist - stackexchange](https://ethereum.stackexchange.com/questions/8551/ethereum-smart-contract-security-checklist/8593#8593)
 - [ ] [solcurity](https://github.com/Rari-Capital/solcurity)
