@@ -54,6 +54,48 @@ A percentage of rent collected by accounts is destroyed, while the rest is distr
 
 ## Programs
 
+Programs, smart contracts on other chains, power the application layer on top of Solana.
+
+### Fact Sheet
+
+- Programs process instructions from both end users and other programs
+- They're stateless, data they interact with is stored in separate accounts
+- Programs are stored in accounts marked as `executable`
+- All programs are owned by the `BPF Loader` and executed by the `Solana Runtime`
+- Developers usually write programs in Rust of C++, but can choose any language that targets the LLVM's BPF backend
+- All programs have a single entry point where instruction processing takes place, parameters always include:
+    - program_id : pubkey
+    - accounts : array
+    - instruction_data : byte array
+
+***Code is seperate from data***
+
+### Native Programs & The Solana Program Library (SPL)
+
+Solana comes equipped with a number of programs that serve as core building blocks for on-chain interactions. They're divided into:
+
+- Native Programs
+- Solana Program Library (SPL) Programs
+
+Notably, the `System Program` is responsible for administering new accounts and transferring SOL between two parties. There are other SPL Programs that support a number of on-chain activities.
+
+Most Rust-based programs follow this architecture:
+
+|      File      |                  Description                  |
+|:--------------:|:---------------------------------------------:|
+| lib.rs         | Registering modules                           |
+| entrypoint.rs  | Entrypoint to the program                     |
+| instruction.rs | Program API, (de)serializing instruction data |
+| processor.rs   | Program logic                                 |
+| state.rs       | Program objects, (de)serializing state        |
+| error.rs       | Program-specific errors                       |
+
+
+
+### Writing Programs
+
+
+
 ## Transactions
 
 ## Program Derived Addresses (PDAs)
