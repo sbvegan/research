@@ -54,6 +54,7 @@ A percentage of rent collected by accounts is destroyed, while the rest is distr
 
 ## Programs
 
+<<<<<<< HEAD
 Programs, smart contracts on other chains, power the application layer on top of Solana.
 
 ### Fact Sheet
@@ -93,8 +94,6 @@ Most Rust-based programs follow this architecture:
 
 
 ### Writing Programs
-
-
 
 ## Transactions
 
