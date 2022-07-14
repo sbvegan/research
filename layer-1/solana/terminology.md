@@ -54,7 +54,6 @@ A percentage of rent collected by accounts is destroyed, while the rest is distr
 
 ## Programs
 
-<<<<<<< HEAD
 Programs, smart contracts on other chains, power the application layer on top of Solana.
 
 ### Fact Sheet
@@ -80,6 +79,10 @@ Solana comes equipped with a number of programs that serve as core building bloc
 
 Notably, the `System Program` is responsible for administering new accounts and transferring SOL between two parties. There are other SPL Programs that support a number of on-chain activities.
 
+### Writing Programs
+
+Most programs are written with Rust or C++, but they can be developed with any language that targets the LLVM's BPF backend.
+
 Most Rust-based programs follow this architecture:
 
 |      File      |                  Description                  |
@@ -91,13 +94,63 @@ Most Rust-based programs follow this architecture:
 | state.rs       | Program objects, (de)serializing state        |
 | error.rs       | Program-specific errors                       |
 
+**[Anchor](https://github.com/coral-xyz/anchor) has emerged as a popular framework for development.**
 
-
-### Writing Programs
+[Deploying Programs](https://docs.solana.com/cli/deploy-a-program)
 
 ## Transactions
 
+Clients can invoke programs by submitting a transaction to a cluster. A single transaction can batch multiple instructions, each targeting its own program. Transaction instructions are processed by the Solana Runtime in order and atomically. Any part of an instruction failure will cause the entire tx to fail.
+
+### Fact Sheet
+
+- Instructions are the most basic operational unit on Solana
+- Each instruction contains:
+    - The `program_id` of the intended program
+    - An array of all `accounts` it intends to read from or write to
+    - An `instruction_data` byte array that is specific to the intended program
+- Multiple instructions can be bundled into a single transaction
+- Each transaction contains:
+    - An array of all `accounts` it intends to read from or write to
+    - One or more `instructions`
+    - A recent `blockhash`
+    - One or more `signatures`
+- Instructions are processed in order and atomically
+- Any part of an instruction failure, causes total failure
+- Transactions are limited to 1232 bytes
+
+### Deep Dive
+
+- The Solana Runtime requires a specified list of all accounts the tx will interact with so it can parallelize execution across all txs
+- It either returns success or failure which causes the tx to fail immediately
+- Before submission, all txs must reference a recent blockhash to prevent duplication and eliminate stale transactions.
+
+### Fees
+
+The Solana collects two types of fees:
+
+- Transaction fees (gas fees)
+- Rent fees for storing data on-chain
+
+Gas fees are deterministic (no fee market). At the moment the tx fees are determined only by the number of signatues required, not by the amount of resources used.
+
+All transactions require at least one `writable` account to sign the transaction. This account is responsible for the cost of the tx.
+
+Currently, 50% of tx fees are collected by the validator and the other 50% is burned.
+
 ## Program Derived Addresses (PDAs)
+
+"Program Derived Addresses (PDAs) are home to accounts that are designed to be controlled by a specific program. With PDAs, programs can programmatically sign for certain addresses without needing a private key. PDAs serve as the foundation for Cross-Program Invocation, which allows Solana apps to be composable with one another."[2]
+
+### Fact Sheet
+
+- PDAs are 32 byte strings that look like public keys, but don’t have corresponding private keys
+- `findProgramAddress` will deterministically derive a PDA from a programId and seeds (collection of bytes)
+- A bump (one byte) is used to push a potential PDA off the ed25519 elliptic curve
+- Programs can sign for their PDAs by providing the seeds and bump to invoke_signed
+- A PDA can only be signed by the program from which it was derived
+In addition to allowing for programs to sign for different instructions, PDAs also provide a hashmap-like interface for indexing accounts
+
 
 ## Sources
 
